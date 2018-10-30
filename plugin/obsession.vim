@@ -7,6 +7,7 @@ if exists("g:loaded_obsession") || v:version < 700 || &cp
   finish
 endif
 let g:loaded_obsession = 1
+let g:obsession_file_name=".Session.vim"
 
 command! -bar -bang -complete=file -nargs=? Obsession
       \ execute s:dispatch(<bang>0, <q-args>)
@@ -26,10 +27,10 @@ function! s:dispatch(bang, file) abort
     elseif empty(a:file) && !empty(session)
       let file = session
     elseif empty(a:file)
-      let file = getcwd() . '/Session.vim'
+      let file = getcwd() . '/'.g:obsession_file_name
     elseif isdirectory(a:file)
       let file = substitute(fnamemodify(expand(a:file), ':p'), '[\/]$', '', '')
-            \ . '/Session.vim'
+            \ . '/'.g:obsession_file_name
     else
       let file = fnamemodify(expand(a:file), ':p')
     endif
